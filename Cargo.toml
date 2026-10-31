@@ -16,7 +16,7 @@ serde_json = "1"
 tokio = { version = "1", features = ["rt-multi-thread", "sync", "time"] }
 java_detect = { path = "../java_detect", features = ["serde"] }
 syncraft-protocol = { path = "../syncraft-protocol" }
-syncraft-skin = { path = "../syncraft-skin" }
+mc-skin-avatar = { path = "../mc-skin-avatar" }
 reqwest = { version = "0.13.4" }
 base64 = "0.22"
 # The desktop shell talks to the launcher core directly instead of going

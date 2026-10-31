@@ -175,8 +175,8 @@ pub async fn fetch_skin() -> Result<Option<SkinData>, String> {
         .map_err(|e| format!("下载皮肤失败：{e}"))?
         .to_vec();
 
-    let (width, height) = syncraft_skin::dimensions(&bytes).map_err(|e| e.to_string())?;
-    let avatar = syncraft_skin::render_avatar(&bytes, 256).map_err(|e| e.to_string())?;
+    let (width, height) = mc_skin_avatar::dimensions(&bytes).map_err(|e| e.to_string())?;
+    let avatar = mc_skin_avatar::render_avatar(&bytes, 256).map_err(|e| e.to_string())?;
     let declared = skin
         .metadata
         .and_then(|metadata| metadata.model)
@@ -184,7 +184,7 @@ pub async fn fetch_skin() -> Result<Option<SkinData>, String> {
     let model = match declared {
         Some(model) => model,
         None => {
-            if syncraft_skin::detect_slim(&bytes).unwrap_or(false) {
+            if mc_skin_avatar::detect_slim(&bytes).unwrap_or(false) {
                 "slim".to_string()
             } else {
                 "default".to_string()
@@ -215,13 +215,13 @@ pub async fn upload_skin(data: String, model: Option<String>) -> Result<(), Stri
     let bytes = STANDARD
         .decode(data.as_bytes())
         .map_err(|e| format!("无效的皮肤数据：{e}"))?;
-    syncraft_skin::dimensions(&bytes).map_err(|e| e.to_string())?;
+    mc_skin_avatar::dimensions(&bytes).map_err(|e| e.to_string())?;
 
     let model = match model.as_deref() {
         Some("slim") => "slim".to_string(),
         Some("default") => "default".to_string(),
         _ => {
-            if syncraft_skin::detect_slim(&bytes).unwrap_or(false) {
+            if mc_skin_avatar::detect_slim(&bytes).unwrap_or(false) {
                 "slim".to_string()
             } else {
                 "default".to_string()
