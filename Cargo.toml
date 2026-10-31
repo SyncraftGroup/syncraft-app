@@ -1,0 +1,24 @@
+[package]
+name = "syncraft-app"
+version = "0.1.0"
+description = "Syncraft desktop launcher."
+edition = "2024"
+authors = ["Falsw <Falsestar114514@outlook.com>"]
+license = "MIT"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["macos-private-api"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "sync", "time"] }
+java_detect = { path = "../java_detect", features = ["serde"] }
+syncraft-protocol = { path = "../syncraft-protocol" }
+syncraft-skin = { path = "../syncraft-skin" }
+reqwest = { version = "0.13.4" }
+base64 = "0.22"
+# The desktop shell talks to the launcher core directly instead of going
+# through a separate process.
+syncraft-core = { path = "../syncraft-core" }

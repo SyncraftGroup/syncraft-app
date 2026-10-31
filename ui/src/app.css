@@ -1,0 +1,309 @@
+@font-face {
+  font-family: "Monocraft";
+  src: url("./assets/fonts/Monocraft.otf") format("opentype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
+
+@font-face {
+  font-family: "HYPixel";
+  src: url("./assets/fonts/HYPixel11.ttf") format("truetype");
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+}
+
+:root {
+  --paper: #ffffff;
+  --ink: #111111;
+  --muted: #6f6f6f;
+  --rule: #dedede;
+  --track: #e8e8e8;
+  --signal: #d71920;
+  /* Brand accent. Defaults to ink now; will become user-configurable. */
+  --theme: var(--ink);
+  --gutter: 40px;
+  --titlebar-pad: 24px;
+  --controls-pad: 16px;
+  --page-top: 32px;
+  --page-bottom: 24px;
+  --section-gap: 32px;
+  --action-pad-bottom: 24px;
+  --topbar-h: 48px;
+  --action-h: 120px;
+  --window-edge: 5px;
+  --window-side: 1px;
+  --window-radius: 4px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-display: "Monocraft", "HYPixel", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --font-ui: "Monocraft", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  --font-data: "Monocraft", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans CJK SC", monospace;
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  background: transparent;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  font-synthesis: none;
+  font-variant-ligatures: none;
+}
+
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font: inherit;
+  font-weight: 400;
+}
+
+button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.mono {
+  font-family: var(--font-data);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Pages ---------------------------------------------------------------- */
+
+.page {
+  height: 100%;
+  padding: var(--page-top) var(--gutter) var(--page-bottom);
+  overflow-y: auto;
+  scrollbar-color: #cfcfcf transparent;
+  scrollbar-width: thin;
+}
+
+.page::-webkit-scrollbar {
+  width: 4px;
+}
+
+.page::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.page::-webkit-scrollbar-thumb {
+  background: #cfcfcf;
+}
+
+.page-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 48px;
+}
+
+.section {
+  margin-top: var(--section-gap);
+  padding-top: 12px;
+  border-top: 2px solid var(--ink);
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.section-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 26px;
+}
+
+/* Read-only detail rows ------------------------------------------------ */
+
+.details {
+  margin-top: var(--section-gap);
+  border-top: 2px solid var(--ink);
+}
+
+.detail {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.detail-label,
+.detail-value {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.detail-value {
+  flex: none;
+  color: var(--muted);
+  text-align: right;
+}
+
+/* Settings rows -------------------------------------------------------- */
+
+.setting-row {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+}
+
+.setting-row:not(.static) {
+  cursor: pointer;
+}
+
+.setting-label,
+.setting-value {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.setting-value {
+  overflow: hidden;
+  margin-left: auto;
+  color: var(--muted);
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 160ms var(--ease);
+}
+
+.setting-control {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
+}
+
+.chevron {
+  width: 8px;
+  height: 8px;
+  flex: none;
+  background: var(--muted);
+  clip-path: polygon(0 0, 4px 0, 8px 4px, 4px 8px, 0 8px, 4px 4px);
+  transition:
+    background-color 160ms var(--ease),
+    transform 200ms var(--ease);
+}
+
+.setting-row:hover .setting-value {
+  color: var(--ink);
+}
+
+.setting-row:hover .chevron {
+  background: var(--ink);
+  transform: translateX(4px);
+}
+
+/* Media ---------------------------------------------------------------- */
+
+@media (max-width: 820px) {
+  :root {
+    --gutter: 24px;
+    --titlebar-pad: 16px;
+    --controls-pad: 8px;
+    --page-top: 24px;
+    --section-gap: 28px;
+  }
+
+  .page {
+    padding-top: var(--page-top);
+  }
+
+  .section {
+    margin-top: var(--section-gap);
+  }
+
+  .page-title {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .setting-row {
+    gap: 12px;
+  }
+
+  .setting-value {
+    max-width: 56%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
